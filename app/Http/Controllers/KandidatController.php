@@ -688,7 +688,7 @@ class KandidatController extends Controller
         $validated = $request->validate([
             'nik_perizin' => 'required|max:16|min:16',
             'foto_ktp_izin' => 'mimes:png,jpg,jpeg|max:2048',
-            'no_telp_perizin' => 'min:10|max:13'
+            'no_telp_perizin' => 'required|min:10|max:13'
         ]);
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
@@ -738,7 +738,7 @@ class KandidatController extends Controller
             'hubungan_perizin' => $request->hubungan_perizin
         ]);
 
-            return redirect()->route('kandidat');
+            return redirect()->route('paspor');
     }
 
     public function isi_kandidat_paspor()

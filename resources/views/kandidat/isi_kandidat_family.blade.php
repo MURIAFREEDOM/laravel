@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_buku_nikah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" class="img" width="150px" height="150" alt="">
                                         <input type="file" name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
                                     @else
                                         <input type="file" required name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
@@ -160,7 +160,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         @if ($kandidat->foto_cerai)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" class="img" width="150px" height="150px" alt="">
                                         @else
                                             <input type="file" class="form-control" name="foto_cerai" accept="image/*">
                                         @endif
@@ -173,7 +173,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         @if ($kandidat->foto_cerai)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Kematian Pasangan/{{$kandidat->foto_kematian_pasangan}}" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Kematian Pasangan/{{$kandidat->foto_kematian_pasangan}}" class="img" width="150px" height="150px" alt="">
                                         @else
                                             <input type="file" class="form-control" name="foto_kematian_pasangan" accept="image/*">
                                         @endif

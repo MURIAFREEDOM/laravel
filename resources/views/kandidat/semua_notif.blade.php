@@ -27,6 +27,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="">Notifikasi ini akan otomatis terhapus dalam 2 minggu</div>
             </div>
         </div>
     </div>

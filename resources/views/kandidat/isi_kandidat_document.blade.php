@@ -138,7 +138,7 @@
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ktp !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP/{{$kandidat->foto_ktp}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP/{{$kandidat->foto_ktp}}" class="img" width="150px" height="150px" alt="">
                                         <input type="file" name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ktp')
                                             <span class="invalid-feedback" role="alert">
@@ -168,7 +168,7 @@
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_kk !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KK/{{$kandidat->foto_kk}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KK/{{$kandidat->foto_kk}}" class="img" width="150px" height="150px" alt="">
                                         <input type="file" name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">
                                         @error('foto_kk')
                                             <span class="invalid-feedback" role="alert">
@@ -198,7 +198,7 @@
                                             </span>
                                         @enderror
                                     @elseif($kandidat->foto_set_badan !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" class="img" width="150px" height="150px" alt="">
                                         <input type="file" name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">
                                         @error('foto_set_badan')
                                             <span class="invalid-feedback" role="alert">
@@ -228,7 +228,7 @@
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_4x6 !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" class="img" width="150px" height="150px" alt="">
                                         <input type="file" name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">
                                         @error('foto_4x6')
                                             <span class="invalid-feedback" role="alert">
@@ -258,7 +258,7 @@
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ket_lahir !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Ket_lahir/{{$kandidat->foto_ket_lahir}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Ket_lahir/{{$kandidat->foto_ket_lahir}}" class="img" width="150px" height="150px" alt="">
                                         <input type="file" name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">
                                         @error('foto_ket_lahir')
                                             <span class="invalid-feedback" role="alert">
@@ -288,7 +288,7 @@
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ijazah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/ijazah/{{$kandidat->foto_ijazah}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/ijazah/{{$kandidat->foto_ijazah}}" class="img" width="150px" height="150px" alt="">
                                         <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">
                                         @error('foto_ijazah')
                                             <span class="invalid-feedback" role="alert">

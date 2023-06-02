@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Manager
+class Perusahaan
 {
     /**
      * Handle an incoming request.
@@ -16,15 +16,13 @@ class Manager
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->user()) {
-            if (auth()->user()->type == 3) {
-                return $next($request);            
-            } elseif(auth()->user()->type !== 3) {
-                return response()->redirect('/');
+            if (auth()->user()->type == 2) {
+                return $next($request);       
             } else {
                 return response()->redirect('/laman');
-            }    
+            }
         } else {
             return response()->redirect('/laman');
-        }
+        }        
     }
 }

@@ -131,9 +131,10 @@ class RegisterController extends Controller
             'email' => $request->email,
             'no_telp' => $request->no_telp
         ]);
-        
+                
         Auth::login($user);   
         return redirect()->route('personal');
+        
     }
 
     // $pengirim = [
