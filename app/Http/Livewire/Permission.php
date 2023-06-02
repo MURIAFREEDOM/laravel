@@ -31,7 +31,11 @@ class Permission extends Component
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
-        return view('livewire.permission',compact('manager'))->extends('layouts.manager');
+        $prov = Provinsi::where('provinsi',$manager->provinsi)->first('id');
+        $kab = Kota::where('kota',$manager->kabupaten)->first('id');
+        $kel = Kelurahan::where('kelurahan',$manager->kelurahan)->first('id');
+        $kec = Kecamatan::where('kecamatan',$manager->kecamatan)->first('id');
+        return view('livewire.permission',compact('prov','kab','kec','kel','manager'))->extends('layouts.manager');
     }
 
     public function updatedkota($state)

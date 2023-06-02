@@ -126,7 +126,7 @@
                             <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                            <input type="text" required name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                             @error('nik_perizin')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>Harap isi no. nik 16 digit</strong>
@@ -180,7 +180,7 @@
                             <label for="inputPassword6" class="col-form-label">Hubungan Pemberi Izin</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="hubungan_perizin" placeholder="Masukkan hubungan. contoh: ayah, ibu, suami, anak, dll." id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
+                            <input type="text" class="form-control" required name="hubungan_perizin" placeholder="Masukkan hubungan. contoh: ayah, ibu, suami, anak, dll." id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
                         </div>
                     </div>
                     <a class="btn btn-danger" href="/manager/surat_izin">Kembali</a>

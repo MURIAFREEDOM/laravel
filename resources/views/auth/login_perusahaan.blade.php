@@ -11,14 +11,22 @@
                 <div class="card-body">
                     <form action="/login/perusahaan" method="POST">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="mb-3">
+                        <div class="form-group">
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for="exampleInputEmail1">Masukkan No NIB</label>
+                                </div>
+                                <div class="col">
                                     <input name="nib" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 </div>
-                                <div class="mb-3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for="exampleInputPassword1">Masukkan Email</label>
+                                </div>
+                                <div class="col">
                                     <input name="email" type="email" class="form-control" id="exampleInputPassword1">
                                 </div>
                             </div>

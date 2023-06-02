@@ -116,7 +116,7 @@
                                     @if ($kandidat->foto_paspor == "")
                                         <input type="file" class="form-control"  name="foto_paspor" value="{{$kandidat->foto_paspor}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($kandidat->foto_paspor !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Paspor/{{$kandidat->foto_paspor}}" width="120" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Paspor/{{$kandidat->foto_paspor}}" class="img" width="150" height="150" alt="">
                                         <input type="file" class="form-control"  name="foto_paspor" value="{{$kandidat->foto_paspor}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
                                         <input type="file" class="form-control"  name="foto_paspor" value="{{$kandidat->foto_paspor}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        

@@ -1,13 +1,60 @@
-@extends('layouts.manager')
+@extends('layouts.script')
 
 @section('content')
-    <div class="container mt-5">        
+    <div class="container">        
         <div class="card mb-5">
+            <div class="card-header mx-auto">
+                <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('personal')}}">Personal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('document')}}">Document</a>
+                    </li>
+                    <li class="nav-item">
+                        @if($kandidat->stats_nikah == null)
+                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>
+                        @elseif($kandidat->stats_nikah !== "Single")
+                            <a class="nav-link" href="{{route('family')}}">Family</a>                          
+                        @else
+                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>                          
+                        @endif
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('vaksin')}}">Vaksin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('parent')}}">Parent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('company')}}">Company</a>
+                    </li>                          
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('permission')}}">Permission</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('paspor')}}">Paspor</a>
+                    </li>
+                    @if ($kandidat->penempatan == "luar negeri")
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('placement')}}">Placement</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
+                        </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('job')}}">Job</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Selesai</a>
+                    </li>
+                </ul>
+            </div>
             <div class="card-body">
                 <div class="row">
-                    <h4 class="mx-auto">PERSONAL BIO DATA</h4>                    
-                </div>
-                <div class="">
+                    <h4 class="text-center">PERSONAL BIO DATA</h4>
                     <h6 class="text-center mb-5">Indonesia</h6>
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -65,15 +112,7 @@
                                     <input name="alamat_perizin"  value="{{$kandidat->alamat_perizin}}" class="form-control" id="" cols="" rows=""></input>
                                 </div>
                             </div>
-                            @livewire('manager.location-permission')
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Dusun</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" value="{{$kandidat->dusun_perizin}}" name="dusun_perizin" required placeholder="Masukkan Alamat Dusun">
-                                </div>
-                            </div>
+                            @livewire('location-permission')
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">RT / RW</label>
@@ -93,7 +132,7 @@
                                     @if ($kandidat->foto_ktp_izin == "")
                                         <input type="file" class="form-control"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($kandidat->foto_ktp_izin !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="120" height="150" alt="">
+                                        <img src="/gambar/Kandidat/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="120" height="150" alt="">
                                         <input type="file" class="form-control"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
                                         <input type="file" class="form-control"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        

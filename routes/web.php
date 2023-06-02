@@ -88,7 +88,11 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/surat_izin','suratIzin')->middleware('manager');
     Route::get('/manager/buat_surat_izin','buatSuratIzin')->middleware('manager');
     Route::post('/manager/buat_surat_izin','simpanSuratIzin');
+<<<<<<< HEAD
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
+=======
+
+>>>>>>> parent of a20500e (testing)
 
     // DATA PERUSAHAAN //
     Route::get('/manager/pembayaran/perusahaan','pembayaranPerusahaan')->middleware('manager');

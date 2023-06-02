@@ -67,4 +67,13 @@
             </select>
         </div>
     </div>
+
+    <div class="row mb-3 g-3 align-items-center">
+        <div class="col-md-4">
+            <label for="inputPassword6" class="col-form-label">Dusun</label>
+        </div>
+        <div class="col-md-8">
+            <input type="text" class="form-control" name="dusun_perizin" required placeholder="Masukkan Alamat Dusun">
+        </div>
+    </div>
 </div>

@@ -205,7 +205,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="btn" href="/manager/surat_izin">
+                                            <a class="btn" href="/manager/permission">
                                                 <span class="sub-item">Data Surat izin</span>
                                             </a>
                                         </li>

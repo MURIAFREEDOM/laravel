@@ -134,13 +134,7 @@
                     <b class="bold">Tempat, Tanggal Lahir</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: {{$kandidat->tmp_lahir}}, 
-                        @if ($kandidat->tgl_lahir == null)
-                            
-                        @else
-                            {{$tgl_user}}
-                        @endif
-                    </b>
+                    <b class="bold">: {{$kandidat->tmp_lahir}}, {{$tgl_user}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
@@ -316,13 +310,7 @@
                     <b class="bold">Tanggal Lahir</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: 
-                        @if ($kandidat->tgl_lahir == null)
-                            
-                        @else
-                            {{$tgl_user}}
-                        @endif
-                    </b>
+                    <b class="bold">: {{$tgl_user}}</b>
                 </div>
             </div>
             <div class="row">
@@ -372,13 +360,7 @@
                     <b class="bold">Tanggal Lahir</b>
                 </div>
                 <div class="col-8">
-                    @if ($kandidat->tgl_lahir_perizin == null)
-                        <b class="bold">:</b>
-                    @else
-                    <b class="bold">: 
-                        {{$tgl_perizin}}</b>    
-                    @endif
-                    
+                    <b class="bold">: {{$tgl_perizin}}</b>
                 </div>
             </div>
             <div class="row">
@@ -406,7 +388,6 @@
                 <div class="col-2"></div>
                 <div class="col-5 text-center"><b class="" style="font-size: 11px; font-weight:bold; text-transform:uppercase; font-family:serif"> 
                     {{$kandidat->kabupaten}}, 
-                    
                     {{$tgl_print}}</b></div>
             </div>
             <div class="row" style="height: 50px">
