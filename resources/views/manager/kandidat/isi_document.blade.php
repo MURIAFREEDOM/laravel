@@ -1,60 +1,13 @@
-@extends('layouts.script')
+@extends('layouts.manager')
 
 @section('content')
-    <div class="container">        
+    <div class="container mt-5">        
         <div class="card mb-4">
-            <div class="card-header mx-auto">
-                <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('personal')}}">Personal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{route('document')}}">Document</a>
-                    </li>
-                    <li class="nav-item">
-                        @if($kandidat->stats_nikah == null)
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>
-                        @elseif($kandidat->stats_nikah !== "Single")
-                            <a class="nav-link" href="{{route('family')}}">Family</a>                          
-                        @else
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>                          
-                        @endif
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('vaksin')}}">Vaksin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('parent')}}">Parent</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('company')}}">Company</a>
-                    </li>                          
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('permission')}}">Permission</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('paspor')}}">Paspor</a>
-                    </li>
-                    @if ($kandidat->penempatan == "luar negeri")
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('placement')}}">Placement</a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
-                        </li>
-                    @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('job')}}">Job</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Selesai</a>
-                    </li>
-                </ul>
-            </div>
             <div class="card-body">
                 <div class="row">
-                    <h4 class="text-center">PERSONAL BIO DATA</h4>
+                    <h4 class="mx-auto">PERSONAL BIO DATA</h4>
+                </div>
+                <div class="">                    
                     <h6 class="text-center mb-4">Indonesia</h6>
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -82,7 +35,7 @@
                                     <label for="inputPassword6" class="col-form-label">Pendidikan Terakhir</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="pendidikan" class="form-select" id="">
+                                    <select name="pendidikan" class="form-control" id="">
                                         <option value="">-- Pilih Pendidikan --</option>
                                         <option value="SD" @if ($kandidat->pendidikan == "SD") selected @endif>SD</option>
                                         <option value="SMP" @if ($kandidat->pendidikan == "SMP") selected @endif>SMP</option>
@@ -101,7 +54,15 @@
                                     <input name="alamat" value="{{$kandidat->alamat}}" class="form-control" id="" cols="" rows="">
                                 </div>
                             </div>
-                            @livewire('location')
+                            @livewire('manager.location')
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="inputPassword6" class="col-form-label">Dusun</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" value="{{$kandidat->dusun}}" name="dusun" required placeholder="Masukkan Alamat Dusun">
+                                </div>
+                            </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">RT / RW</label>
@@ -121,7 +82,7 @@
                                     @if ($kandidat->foto_ktp == "")
                                         <input type="file" name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
                                     @elseif ($kandidat->foto_ktp !== null)
-                                        <img src="/gambar/Kandidat/KTP/{{$kandidat->foto_ktp}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP/{{$kandidat->foto_ktp}}" width="120px" height="150px" alt="">
                                         <input type="file" name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
                                     @else
                                         <input type="file" name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
@@ -141,7 +102,7 @@
                                     @if ($kandidat->foto_kk == "")
                                         <input type="file" name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">                                        
                                     @elseif ($kandidat->foto_kk !== null)
-                                        <img src="/gambar/Kandidat/KK/{{$kandidat->foto_kk}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KK/{{$kandidat->foto_kk}}" width="120px" height="150px" alt="">
                                         <input type="file" name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">
                                     @else
                                         <input type="file" name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">                                        
@@ -161,7 +122,7 @@
                                     @if ($kandidat->foto_set_badan == '')
                                         <input type="file" name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
                                     @elseif($kandidat->foto_set_badan !== null)
-                                        <img src="/gambar/Kandidat/Set_badan/{{$kandidat->foto_set_badan}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="120px" height="150px" alt="">
                                         <input type="file" name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">
                                     @else
                                         <input type="file" name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
@@ -181,7 +142,7 @@
                                     @if ($kandidat->foto_4x6 == '')
                                         <input type="file" name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
                                     @elseif ($kandidat->foto_4x6 !== null)
-                                        <img src="/gambar/Kandidat/4x6/{{$kandidat->foto_4x6}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" width="120px" height="150px" alt="">
                                         <input type="file" name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">
                                     @else
                                         <input type="file" name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
@@ -201,7 +162,7 @@
                                     @if ($kandidat->foto_ket_lahir == "")
                                         <input type="file" name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">                                        
                                     @elseif ($kandidat->foto_ket_lahir !== null)
-                                        <img src="/gambar/Kandidat/Ket_lahir/{{$kandidat->foto_ket_lahir}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Ket_lahir/{{$kandidat->foto_ket_lahir}}" width="120px" height="150px" alt="">
                                         <input type="file" name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">
                                     @else
                                         <input type="file" name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">                                        
@@ -221,7 +182,7 @@
                                     @if ($kandidat->foto_ijazah == "")
                                         <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">                                        
                                     @elseif ($kandidat->foto_ijazah !== null)
-                                        <img src="/gambar/Kandidat/ijazah/{{$kandidat->foto_ijazah}}" width="120px" height="150px" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/ijazah/{{$kandidat->foto_ijazah}}" width="120px" height="150px" alt="">
                                         <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">
                                     @else
                                         <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">                                        
@@ -238,7 +199,7 @@
                                     <label for="inputPassword6" class="col-form-label">Status Pernikahan</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <select name="stats_nikah" class="form-select" id="">
+                                    <select name="stats_nikah" class="form-control" id="">
                                         <option value="Single" @if ($kandidat->stats_nikah == "Single") selected @endif>Single</option>
                                         <option value="Menikah" @if ($kandidat->stats_nikah == "Menikah") selected @endif>Menikah</option>
                                         <option value="Cerai hidup" @if ($kandidat->stats_nikah == "Cerai hidup") selected @endif>Cerai Hidup</option>

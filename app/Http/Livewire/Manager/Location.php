@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Manager;
 
 use Livewire\Component;
 use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
-class Permission extends Component
+class Location extends Component
 {
     public $provinsis;
     public $kotas;
@@ -27,11 +25,12 @@ class Permission extends Component
         $this->kecamatans = collect();
         $this->kelurahans = collect();
     }
+    
+
+
     public function render()
     {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        return view('livewire.permission',compact('manager'))->extends('layouts.manager');
+        return view('livewire.manager.location')->extends('layouts.manager');
     }
 
     public function updatedkota($state)

@@ -88,6 +88,7 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/surat_izin','suratIzin');
     Route::get('/manager/buat_surat_izin','buatSuratIzin');
     Route::post('/manager/buat_surat_izin','simpanSuratIzin');
+    Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat');
 
 
     // DATA PERUSAHAAN //

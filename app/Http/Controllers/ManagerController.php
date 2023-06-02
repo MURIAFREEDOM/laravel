@@ -53,7 +53,8 @@ class ManagerController extends Controller
     {
         $id = Auth::user();
         $manager = User::where('referral_code',$id->referral_code)->first();
-        return view('/manager/kandidat/surat_izin',compact('manager'));
+        $suratIzin = Kandidat::all();
+        return view('/manager/kandidat/surat_izin',compact('manager','suratIzin'));
     }
 
     public function buatSuratIzin()
@@ -122,9 +123,58 @@ class ManagerController extends Controller
             'rt_perizin'=>$request->rt_perizin,
             'rw_perizin'=>$request->rw_perizin,
             'hubungan_perizin'=>$request->hubungan_perizin,
-            'negara_perizin'=>"Indonesia"
+            'negara_perizin'=>"Indonesia",
+            'stats_negara'=>"Indonesia",
         ]);
         return redirect('/manager/surat_izin')->with('success', 'Data berhasil ditambahkan');
+    }
+
+    public function cetakSurat($id)
+    {
+        $kandidat = Kandidat::join(
+            'ref_negara', 'kandidat.negara_id','=','ref_negara.negara_id'
+        )
+        ->where('kandidat.id_kandidat',$id)->first();
+        $tgl_print = Carbon::now()->isoFormat('D MMM Y');
+        if ($kandidat->negara == "loc") {
+            $negara = "Indonesia";
+        }
+        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
+        $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
+        // dd($tmp_user->cityName);
+        if ($kandidat->periode_awal1 !== null) {
+            $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
+            $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
+        } else {
+            $periode_awal1 = null;
+            $periode_akhir1 = null;
+        }
+        if ($kandidat->periode_awal2 !== null) {
+            $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
+            $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
+        } else {
+            $periode_awal2 = null;
+            $periode_akhir2 = null;
+        }
+        if ($kandidat->periode_awal3 !== null){
+            $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
+            $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
+        } else {
+            $periode_awal3 = null;
+            $periode_akhir3 = null;
+        }
+        return view('manager/kandidat/cetak_surat', compact(
+            'kandidat',
+            'tgl_print',
+            'tgl_user',
+            'tgl_perizin',
+            // 'periode_awal1',
+            // 'periode_awal2',
+            // 'periode_awal3',
+            // 'periode_akhir1',
+            // 'periode_akhir2',
+            // 'periode_akhir3',
+        ));
     }
 
     public function lihatProfil($id)
@@ -192,8 +242,9 @@ class ManagerController extends Controller
     {
         $timeNow = Carbon::now();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        $user = User::where('referral_code',$kandidat->referral_code)->first();
-        return view('manager/kandidat/isi_personal',compact('timeNow','user','kandidat'));
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        return view('manager/kandidat/isi_personal',compact('timeNow','kandidat','manager'));
     }
 
     public function simpan_personal(Request $request, $id)
@@ -237,18 +288,20 @@ class ManagerController extends Controller
             'email' => $request->email
         ]);
 
-        return redirect('/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function isi_document($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat', $id)->first();
         $kelurahan = Kelurahan::all();
         $kecamatan = Kecamatan::all();
         $kota = Kota::all();
         $provinsi = Provinsi::all();
         $negara = Negara::all();
-        return view('manager/kandidat/isi_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi','negara'));
+        return view('manager/kandidat/isi_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi','negara','manager'));
     }
 
     public function simpan_document(Request $request,$id)
@@ -389,23 +442,20 @@ class ManagerController extends Controller
             $foto_ijazah,
             'stats_nikah' => $request->stats_nikah
         ]);
-        if ($request->stats_nikah !== "Single") {
-            return redirect('/lihat_profil/'.$id);
-        } else {
-            return redirect('/lihat_profil/'.$id);
-
-        }        
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function isi_family($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         if ($kandidat->stats_nikah == null) {
-            return redirect('/lihat_profil/'.$id);
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
         } elseif($kandidat->stats_nikah !== "Single") {
-            return view('manager/kandidat/isi_family',compact('kandidat'));    
+            return view('manager/kandidat/isi_family',compact('kandidat','manager'));    
         } else {
-            return redirect('/lihat_profil/'.$id);
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
         }
     }
 
@@ -474,13 +524,15 @@ class ManagerController extends Controller
             'foto_cerai' => $foto_cerai,
             'foto_kematian_pasangan' => $foto_kematian_pasangan,
         ]);
-        return redirect('/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function isi_vaksin($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat', $id)->first(); 
-        return view('manager/kandidat/isi_vaksinasi',['kandidat'=>$kandidat]);
+        return view('manager/kandidat/isi_vaksin',['kandidat'=>$kandidat,'manager'=>$manager]);
     }
 
     public function simpan_vaksin(Request $request,$id)
@@ -558,13 +610,15 @@ class ManagerController extends Controller
             // null,
             $foto_sertifikat_vaksin3
         ]);
-        return redirect('/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function isi_parent($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat', $id)->first();
-        return view('manager/kandidat/isi_parent',['kandidat'=>$kandidat]);
+        return view('manager/kandidat/isi_parent',['kandidat'=>$kandidat,'manager'=>$manager]);
     }
 
     public function simpan_parent(Request $request,$id)
@@ -581,16 +635,18 @@ class ManagerController extends Controller
 
         $ket = 1;
         if ($ket == $request->confirm) {
-            return redirect('/lihat_profil/'.$id);
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
         } else {
-            return redirect('/lihat_profil/'.$id);
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
         }        
     }
 
     public function isi_company($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat', $id)->first();
-        return view('manager/kandidat/isi_company', ['kandidat'=>$kandidat]);
+        return view('manager/kandidat/isi_company', ['kandidat'=>$kandidat,'manager'=>$manager]);
     }
 
     public function simpan_company(Request $request,$id)
@@ -689,17 +745,19 @@ class ManagerController extends Controller
             'id_kandidat'=>$kandidat->id_kandidat,
             'pengalaman_kerja'=>$request->jabatan1.','.$request->jabatan2.','.$request->jabatan3,
         ]);
-        return redirect('/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function isi_permission($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat', $id)->first();
         $provinsi = Provinsi::all();
         $kota = Kota::all();
         $kecamatan = Kecamatan::all();
         $kelurahan = Kelurahan::all();
-        return view('manager/kandidat/isi_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota'));
+        return view('manager/kandidat/isi_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','manager'));
     }
 
     public function simpan_permission(Request $request,$id)
@@ -751,13 +809,15 @@ class ManagerController extends Controller
             'hubungan_perizin' => $request->hubungan_perizin
         ]);
 
-            return redirect('/lihat_profil/'.$id);
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function isi_paspor($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        return view('manager/kandidat/isi_paspor',compact('kandidat'));
+        return view('manager/kandidat/isi_paspor',compact('kandidat','manager'));
     }
 
     public function simpan_paspor(Request $request,$id)
@@ -791,20 +851,22 @@ class ManagerController extends Controller
             'foto_paspor'=>$foto_paspor,
         ]);
         if ($kandidat->penempatan == "luar negeri") {
-            return redirect('/lihat_profil/'.$id);
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
         } else {
-            return redirect('/lihat_profil/'.$id);
+            return redirect('/manager/kandidat/lihat_profil/'.$id);
         }
     }
 
     public function isi_placement($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat', $id)->first();
         $negara = Negara::where('negara_id','not like',2)->get();
         if ($kandidat->penempatan == "luar negeri"){
-            return view('manager/kandidat/isi_placement',compact('negara','kandidat'));
+            return view('manager/kandidat/isi_placement',compact('negara','kandidat','manager'));
         }
-        return redirect('/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function simpan_placement(Request $request,$id)
@@ -814,11 +876,13 @@ class ManagerController extends Controller
             'jabatan_kandidat' => $request->jabatan_kandidat,
             'kontrak' => $request->kontrak,
         ]);
-        return redirect('/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function isi_job($id)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         $umur = Carbon::parse($kandidat->tgl_lahir)->age;
             $pekerjaan = Pekerjaan::join(
@@ -827,7 +891,7 @@ class ManagerController extends Controller
             ->where('pekerjaan.negara_id',$kandidat->negara_id)
             ->where('pekerjaan.syarat_umur','>=',$umur)
             ->get();
-        return view('manager/kandidat/isi_job',compact('pekerjaan','kandidat'));
+        return view('manager/kandidat/isi_job',compact('pekerjaan','kandidat','manager'));
     }
 
     public function simpan_job(Request $request,$id)
@@ -836,7 +900,7 @@ class ManagerController extends Controller
         Kandidat::where('id_kandidat',$id)->update([
             'id_pekerjaan'=> $request->id_pekerjaan
         ]);
-        return redirect('/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     public function pembayaranKandidat()

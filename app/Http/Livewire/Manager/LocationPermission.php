@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Manager;
 
 use Livewire\Component;
 use App\Models\Provinsi;
@@ -10,7 +10,7 @@ use App\Models\Kelurahan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class Permission extends Component
+class LocationPermission extends Component
 {
     public $provinsis;
     public $kotas;
@@ -29,9 +29,9 @@ class Permission extends Component
     }
     public function render()
     {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        return view('livewire.permission',compact('manager'))->extends('layouts.manager');
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        return view('livewire.manager.location-permission',compact('manager'));
     }
 
     public function updatedkota($state)

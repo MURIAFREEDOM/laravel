@@ -36,10 +36,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" style="font-weight: bold; color:black" href="#">Laman <span class="sr-only">(current)</span></a>
+              <a class="nav-link" style="font-weight: bold; color:black" href="/laman">Laman <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" style="font-weight: bold; color:black" href="#">Contact Us</a>
+              <a class="nav-link" style="font-weight: bold; color:black" href="/contact_us">Contact Us</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" style="font-weight: bold; color:black" href="#" role="button" data-toggle="dropdown" aria-expanded="false">

@@ -1,59 +1,12 @@
-@extends('layouts.script')
+@extends('layouts.manager')
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <div class="card mb-5">
-            <div class="card-header mx-auto">
-                <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('personal')}}">Personal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('document')}}">Document</a>
-                    </li>
-                    <li class="nav-item">
-                        @if($kandidat->stats_nikah == null)
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>
-                        @elseif($kandidat->stats_nikah !== "Single")
-                            <a class="nav-link" href="{{route('family')}}">Family</a>                          
-                        @else
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>                          
-                        @endif
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('vaksin')}}">Vaksin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('parent')}}">Parent</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{route('company')}}">Company</a>
-                    </li>                          
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('permission')}}">Permission</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('paspor')}}">Paspor</a>
-                    </li>
-                    @if ($kandidat->penempatan == "luar negeri")
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('placement')}}">Placement</a>
-                        </li>
-                    @else
-                        <li class="nav-item disabled">
-                            <a class="nav-link" href="{{route('placement')}}">Placement</a>
-                        </li>
-                    @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('job')}}">Job</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Selesai</a>
-                    </li>
-                </ul>
-            </div>
             <div class="card-body">
                 <div class="row">
-                    <h4 class="text-center">PERSONAL BIO DATA</h4>
+                    <h4 class="mx-auto">PERSONAL BIO DATA</h4>
+                </div>
+                <div class="">
                     <h6 class="text-center mb-5">Indonesia</h6>
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -117,7 +70,9 @@
                                     @if ($kandidat->video_kerja1 == "")
                                         <input type="file" name="video_kerja1" id="inputPassword6" class="form-control @error('video_kerja1') is-invalid @enderror" aria-labelledby="passwordHelpInline" accept="video/*">                                        
                                     @elseif ($kandidat->video_kerja1 !== null)
-                                        <iframe src="/video/Pengalaman Kerja1/{{$kandidat->video_kerja1}}" frameborder="0"></iframe>
+                                        <video width="400" >
+                                            <source src="/gambar/kandidat/{{$kandidat->nama}}/Pengalaman Kerja/Pengalaman Kerja1/{{$kandidat->video_kerja1}}" type="video/mp4">
+                                        </video>
                                     @else
                                         <input type="file" name="video_kerja1" id="inputPassword6" class="form-control @error('video_kerja1') is-invalid @enderror" aria-labelledby="passwordHelpInline" accept="video/*">                                        
                                     @endif
@@ -196,7 +151,9 @@
                                     @if ($kandidat->video_kerja2 == "")
                                         <input type="file" name="video_kerja2" id="inputPassword6" class="form-control @error('video_kerja2') is-invalid @enderror" aria-labelledby="passwordHelpInline" accept="video/*">                                        
                                     @elseif ($kandidat->video_kerja2 !== null)
-                                        <iframe src="/video/Pengalaman Kerja2/{{$kandidat->video_kerja2}}" frameborder="0"></iframe>
+                                        <video width="400">
+                                            <source src="/gambar/kandidat/{{$kandidat->nama}}/Pengalaman Kerja/Pengalaman Kerja2/{{$kandidat->video_kerja2}}" type="video/mp4">
+                                        </video>
                                     @else
                                         <input type="file" name="video_kerja2" id="inputPassword6" class="form-control @error('video_kerja2') is-invalid @enderror" aria-labelledby="passwordHelpInline" accept="video/*">                                        
                                     @endif
@@ -275,7 +232,9 @@
                                     @if ($kandidat->video_kerja3 == "")
                                         <input type="file" name="video_kerja3" id="inputPassword6" class="form-control @error('video_kerja3') is-invalid @enderror" aria-labelledby="passwordHelpInline" accept="video/*">                                        
                                     @elseif ($kandidat->video_kerja3 !== null)
-                                        <iframe src="/video/Pengalaman Kerja3/{{$kandidat->video_kerja3}}" frameborder="0"></iframe>
+                                        <video width="400">
+                                            <source src="/gambar/kandidat/{{$kandidat->nama}}/Pengalaman Kerja/Pengalaman Kerja3/{{$kandidat->video_kerja3}}" type="video/mp4">
+                                        </video>
                                     @else
                                         <input type="file" name="video_kerja3" id="inputPassword6" class="form-control @error('video_kerja3') is-invalid @enderror" aria-labelledby="passwordHelpInline" accept="video/*">                                        
                                     @endif
